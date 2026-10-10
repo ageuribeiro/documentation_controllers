@@ -1,2 +1,2 @@
 [build]
-    command = "source venv/scripts/activate && pip install -r requirements.txt && python app.py"
+    command = "python -m venv venv && source venv/bin/activate && pip install -r requirements.txt"
