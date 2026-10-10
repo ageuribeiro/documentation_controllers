@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="static/app.js" defer></script>
+    <title>Controle de Documentos</title>
+    
+</head>
+
+<body
+    id="document-control-page"
+    class="page page-document-control"
+    data-rpa-page="document-control"
+>
+
+    <main
+        id="main-container"
+        class="app-container"
+        data-rpa-container="main"
+    >
+
+        <!-- ====================================================== -->
+        <!-- CABEÇALHO -->
+        <!-- ====================================================== -->
+
+        <header
+            id="page-header"
+            class="page-header"
+            data-rpa-section="header"
+        >
+            <h1
+                id="page-title"
+                class="page-title"
+            >
+                Controle de Captura de Documentos
+            </h1>
+        </header>
+
+
+        <!-- ====================================================== -->
+        <!-- DATA DE CONCLUSÃO -->
+        <!-- ====================================================== -->
+
+        <section
+            id="capture-information-section"
+            class="content-section capture-information-section"
+            data-rpa-section="capture-information"
+        >
+
+            <h2
+                id="capture-information-title"
+                class="section-title"
+            >
+                Informações da Captura
+            </h2>
+
+            <div
+                id="completion-date-container"
+                class="form-group"
+            >
+
+                <label
+                    id="completion-date-label"
+                    class="form-label"
+                    for="completion-date"
+                >
+                    Data prevista para conclusão da captura dos documentos obrigatórios:
+                </label>
+
+                <input
+                    type="date"
+                    id="completion-date"
+                    name="completionDate"
+                    class="form-control datepicker"
+                    data-rpa-field="completion-date"
+                    data-rpa-type="datepicker"
+                    required
+                >
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================== -->
+        <!-- ARQUIVOS ANEXADOS -->
+        <!-- ====================================================== -->
+
+        <section
+            id="attachments-section"
+            class="content-section attachments-section"
+            data-rpa-section="attachments"
+        >
+
+            <h2
+                id="attachments-title"
+                class="section-title"
+            >
+                Arquivos Anexados
+            </h2>
+
+
+            <!-- INPUT DE UPLOAD -->
+
+            <div
+                id="upload-container"
+                class="form-group upload-container"
+            >
+
+                <label
+                    id="upload-label"
+                    class="form-label"
+                    for="document-upload"
+                >
+                    Anexar documento:
+                </label>
+
+                <input
+                    type="file"
+                    id="document-upload"
+                    name="documentUpload"
+                    class="form-control file-input"
+                    data-rpa-field="document-upload"
+                    data-rpa-type="file"
+                    multiple
+                >
+
+            </div>
+
+
+            <!-- TABELA DE ARQUIVOS ANEXADOS -->
+
+            <div
+                id="attachments-table-container"
+                class="table-container"
+            >
+
+                <table
+                    id="attachments-table"
+                    class="data-table attachments-table"
+                    data-rpa-table="attachments"
+                >
+
+                    <thead id="attachments-table-header">
+
+                        <tr>
+
+                            <th
+                                id="attachment-column-id"
+                                data-rpa-column="id"
+                            >
+                                ID
+                            </th>
+
+                            <th
+                                id="attachment-column-name"
+                                data-rpa-column="filename"
+                            >
+                                Nome do Arquivo
+                            </th>
+
+                            <th
+                                id="attachment-column-type"
+                                data-rpa-column="filetype"
+                            >
+                                Tipo
+                            </th>
+
+                            <th
+                                id="attachment-column-size"
+                                data-rpa-column="filesize"
+                            >
+                                Tamanho
+                            </th>
+
+                            <th
+                                id="attachment-column-date"
+                                data-rpa-column="upload-date"
+                            >
+                                Data do Anexo
+                            </th>
+
+                            <th
+                                id="attachment-column-action"
+                                class="text-center"
+                                data-rpa-column="action"
+                            >
+                                Ação
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody
+                        id="attachments-table-body"
+                        data-rpa-table-body="attachments"
+                    >
+
+                        <tr
+                            id="attachments-empty-row"
+                            class="empty-row"
+                        >
+
+                            <td
+                                colspan="6"
+                                class="empty-message"
+                            >
+                                Nenhum arquivo anexado.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================== -->
+        <!-- LISTA DE DOCUMENTOS -->
+        <!-- ====================================================== -->
+
+        <section
+            id="documents-section"
+            class="content-section documents-section"
+            data-rpa-section="documents"
+        >
+
+            <h2
+                id="documents-title"
+                class="section-title"
+            >
+                Documentos Obrigatórios
+            </h2>
+
+            <div
+                id="documents-table-container"
+                class="table-container"
+            >
+
+                <table
+                    id="documents-table"
+                    class="data-table documents-table"
+                    data-rpa-table="documents"
+                >
+
+                    <thead>
+
+                        <tr>
+
+                            <th data-rpa-column="document-id">
+                                ID
+                            </th>
+
+                            <th data-rpa-column="document-name">
+                                Documento
+                            </th>
+
+                            <th
+                                class="text-center"
+                                data-rpa-column="simple-copy"
+                            >
+                                Cópia Simples
+                            </th>
+
+                            <th
+                                class="text-center"
+                                data-rpa-column="authenticated-copy"
+                            >
+                                Cópia Autenticada
+                            </th>
+
+                            <th
+                                class="text-center"
+                                data-rpa-column="required"
+                            >
+                                Obrigatório
+                            </th>
+
+                            <th
+                                class="text-center"
+                                data-rpa-column="selection"
+                            >
+                                Selecionar
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="documents-table-body">
+
+                        <!-- DOCUMENTO 001 -->
+
+                        <tr
+                            id="document-row-001"
+                            class="document-row"
+                            data-document-id="001"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                001
+                            </td>
+
+                            <td class="document-name">
+                                RG
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-required">
+                                Sim
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-001"
+                                    name="selectedDocuments"
+                                    value="001"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="001"
+                                    aria-label="Selecionar RG"
+                                >
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- DOCUMENTO 002 -->
+
+                        <tr
+                            id="document-row-002"
+                            class="document-row"
+                            data-document-id="002"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                002
+                            </td>
+
+                            <td class="document-name">
+                                CPF
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-required">
+                                Sim
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-002"
+                                    name="selectedDocuments"
+                                    value="002"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="002"
+                                    aria-label="Selecionar CPF"
+                                >
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- DOCUMENTO 003 -->
+
+                        <tr
+                            id="document-row-003"
+                            class="document-row"
+                            data-document-id="003"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                003
+                            </td>
+
+                            <td class="document-name">
+                                Certidão de Nascimento
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-required">
+                                Sim
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-003"
+                                    name="selectedDocuments"
+                                    value="003"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="003"
+                                    aria-label="Selecionar Certidão de Nascimento"
+                                >
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- DOCUMENTO 004 -->
+
+                        <tr
+                            id="document-row-004"
+                            class="document-row"
+                            data-document-id="004"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                004
+                            </td>
+
+                            <td class="document-name">
+                                Comprovante de Residência
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-required">
+                                Sim
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-004"
+                                    name="selectedDocuments"
+                                    value="004"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="004"
+                                    aria-label="Selecionar Comprovante de Residência"
+                                >
+
+                            </td>
+
+                        </tr>
+                        <tr
+                            id="document-row-005"
+                            class="document-row"
+                            data-document-id="005"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                005
+                            </td>
+
+                            <td class="document-name">
+                                Certidão de Casamento
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-required">
+                                Não
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-005"
+                                    name="selectedDocuments"
+                                    value="005"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="005"
+                                    aria-label="Selecionar Certidão de Casamento"
+                                >
+
+                            </td>
+
+                        </tr>
+
+
+                        <!-- DOCUMENTO 006 -->
+
+                        <tr
+                            id="document-row-006"
+                            class="document-row"
+                            data-document-id="006"
+                            data-rpa-row="document"
+                        >
+
+                            <td class="document-id">
+                                006
+                            </td>
+
+                            <td class="document-name">
+                                Comprovante de Renda
+                            </td>
+
+                            <td class="text-center status-yes">
+                                Sim
+                            </td>
+
+                            <td class="text-center status-no">
+                                Não
+                            </td>
+
+                            <td class="text-center status-required">
+                                Sim
+                            </td>
+
+                            <td class="text-center">
+
+                                <input
+                                    type="checkbox"
+                                    id="document-checkbox-006"
+                                    name="selectedDocuments"
+                                    value="006"
+                                    class="document-checkbox"
+                                    data-rpa-control="document-selection"
+                                    data-document-id="006"
+                                    aria-label="Selecionar Comprovante de Renda"
+                                >
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+            <div
+                id="document-actions"
+                class="actions-container"
+                data-rpa-section="actions"
+            >
+
+                <button
+                    type="button"
+                    id="process-selected-documents"
+                    class="button button-primary"
+                    data-rpa-action="process-selected-documents"
+                >
+                    Processar Selecionados
+                </button>
+
+            </div>
+        </section>
+        <section
+            id="frame-section"
+            class="content-section frame-section"
+            data-rpa-section="frame"
+        >
+
+            <h2
+                id="frame-title"
+                class="section-title"
+            >
+                Visualização
+            </h2>
+
+            <!--
+                A tag <frame> pertence ao HTML antigo e não é suportada
+                pelo HTML5 moderno.
+
+                Para manter o comportamento de frame e permitir
+                automação RPA, utilizamos iframe.
+            -->
+
+            <div
+                id="document-frame-container"
+                class="frame-area"
+                data-rpa-container="frame"
+            >
+
+                <iframe
+                    id="document-iframe"
+                    name="documentIframe"
+                    class="document-iframe"
+                    title="Visualização de documentos"
+                    data-rpa-frame="document-preview"
+                    srcdoc="
+                        <!DOCTYPE html>
+                        <html>
+                            <body style='font-family:Arial;padding:20px;'>
+                                <h3>Área interna do IFrame</h3>
+                                <p>
+                                    Esta área pode ser utilizada para
+                                    testes de automação envolvendo IFrame.
+                                </p>
+
+                                <label for='iframe-input'>
+                                    Campo dentro do IFrame:
+                                </label>
+
+                                <input
+                                    type='text'
+                                    id='iframe-input'
+                                    name='iframeInput'
+                                    class='iframe-form-control'
+                                    data-rpa-field='iframe-input'
+                                >
+                            </body>
+                        </html>
+                    "
+                >
+                </iframe>
+
+            </div>
+        </section>
+    </main>
+</body>
+</html>
